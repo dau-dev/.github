@@ -44,7 +44,6 @@ repeatable build/simulation flows for FPGA targets.
 - [**dau-sim**](https://github.com/dau-dev/dau-sim) (public) - simulation infrastructure for digital hardware designs, including cocotb and Verilator integration.
 - [**dau-utils**](https://github.com/dau-dev/dau-utils) (private) - shared host utilities used by the stack.
 - [**artlink**](https://github.com/dau-dev/artlink) (public) - domain-neutral artifact manifests, validation templates, and registry/discovery helpers.
-- [**website**](https://github.com/dau-dev/website) (public) - source for [dau.dev](https://dau.dev).
 
 Some DAU development is proprietary or hardware-lab specific, including portions of the accelerator
 implementation, bring-up evidence, datasets, and internal integration notes. Open-source DAU code is
