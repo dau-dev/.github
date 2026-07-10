@@ -34,21 +34,18 @@ repeatable build/simulation flows for FPGA targets.
 - **Current status:** internal end-to-end market-data aggregation workloads have run on FPGA and matched CPU goldens.
 - **Current focus:** broader operator coverage, runtime scheduling, result streaming, and throughput work.
 
-### Public repos
+### Repos
 
-- [**dau**](https://github.com/dau-dev/dau) - thin end-user Python API over stable DAU primitives.
-- [**dau-polars**](https://github.com/dau-dev/dau-polars) - Polars frontend for selective FPGA pushdown with CPU fallback.
-- [**dau-core**](https://github.com/dau-dev/dau-core) - hardware-facing contracts, golden semantics, stream protocols, and reusable HDL.
-- [**dau-driver**](https://github.com/dau-dev/dau-driver) - DAU-compatible device discovery, registers, DMA, codecs, and execution helpers.
-- [**dau-build**](https://github.com/dau-dev/dau-build) - build specs, artifact bundles, generated hardware handoff, and task orchestration.
-- [**dau-sim**](https://github.com/dau-dev/dau-sim) - simulation infrastructure for digital hardware designs, including cocotb and Verilator integration.
-- [**dau-utils**](https://github.com/dau-dev/dau-utils) - shared host utilities used by the stack.
-- [**artlink**](https://github.com/dau-dev/artlink) - domain-neutral artifact manifests, validation templates, and registry/discovery helpers.
-- [**website**](https://github.com/dau-dev/website) - source for [dau.dev](https://dau.dev).
-
-### Public/private boundary
+- [**dau**](https://github.com/dau-dev/dau) (private) - thin end-user Python API over stable DAU primitives.
+- [**dau-polars**](https://github.com/dau-dev/dau-polars) (private) - Polars frontend for selective FPGA pushdown with CPU fallback.
+- [**dau-core**](https://github.com/dau-dev/dau-core) (private) - hardware-facing contracts, golden semantics, stream protocols, and reusable HDL.
+- [**dau-driver**](https://github.com/dau-dev/dau-driver) (private) - DAU-compatible device discovery, registers, DMA, codecs, and execution helpers.
+- [**dau-build**](https://github.com/dau-dev/dau-build) (public) - build specs, artifact bundles, generated hardware handoff, and task orchestration.
+- [**dau-sim**](https://github.com/dau-dev/dau-sim) (public) - simulation infrastructure for digital hardware designs, including cocotb and Verilator integration.
+- [**dau-utils**](https://github.com/dau-dev/dau-utils) (private) - shared host utilities used by the stack.
+- [**artlink**](https://github.com/dau-dev/artlink) (public) - domain-neutral artifact manifests, validation templates, and registry/discovery helpers.
+- [**website**](https://github.com/dau-dev/website) (public) - source for [dau.dev](https://dau.dev).
 
 Some DAU development is proprietary or hardware-lab specific, including portions of the accelerator
-implementation, bring-up evidence, datasets, and internal integration notes. Public repositories are
-the stable surface for shared tooling, interfaces, examples, and open-source components. Open-source
-DAU code is released under the Apache 2.0 License unless a repository states otherwise.
+implementation, bring-up evidence, datasets, and internal integration notes. Open-source DAU code is
+released under the Apache 2.0 License unless a repository states otherwise.
