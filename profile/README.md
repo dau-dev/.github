@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://dau.dev">
-    <img width="160" src="https://dau.dev/img/dau-dark.png" alt="DAU logo" />
+    <img width="160" src="https://github.com/dau-dev.png?size=320" alt="DAU logo" />
   </a>
 </p>
 <p align="center">
