@@ -18,32 +18,57 @@
 
 ---
 
-[**dau**](https://dau.dev) is a hardware/software stack for accelerating analytical queries.
-It maps SQL-style operators onto a reconfigurable, tile-based FPGA dataflow engine, moves
-fixed-width Arrow record batches over PCIe, and drives execution from Python dataframe workflows.
+[**dau**](https://dau.dev) is a modular hardware/software platform for accelerating analytical
+workflows. It captures dataframe plans, maps supported work onto composable FPGA operator tiles, and
+keeps unsupported work in familiar host software.
 
-The long-term shape is a database processing unit: host-analyzed query plans, composable operator
-tiles, a host-configured on-chip network, explicit CPU fallback for unsupported plan fragments, and
-repeatable build/simulation flows for FPGA targets.
+The execution model is selective and explicit:
 
-- **Frontend:** lazy Polars integration for selective pushdown of supported operators.
-- **Runtime:** Python APIs, device discovery, register access, DMA helpers, Arrow-derived stream codecs, and result rematerialization.
-- **Hardware:** reusable SystemVerilog operator tiles with golden software models, cocotb benches, and Verilator benches.
-- **Build flow:** declarative specs, artifact manifests, Vivado/XDMA handoff, simulation, synthesis, flash, and smoke-test task surfaces.
-- **Current status:** internal end-to-end market-data aggregation workloads have run on FPGA and matched CPU goldens.
-- **Current focus:** broader operator coverage, runtime scheduling, result streaming, and throughput work.
+```text
+Polars lazy plan
+    → capture and type the operation graph
+    → compile supported fragments against the tile palette
+    → compare the required design with the resident device
+    → run now | build a right-sized configuration | return typed CPU residue
+```
 
-### Repos
+Fixed-width Arrow-derived streams carry data across PCIe. Capability contracts describe what a
+resident configuration can execute. Declarative build specs connect the same design description to
+simulation, synthesis, packaging, flashing, and smoke testing.
 
-- [**dau-build**](https://github.com/dau-dev/dau-build) (public) - build specs, artifact bundles, generated hardware handoff, and task orchestration.
-- [**dau-sim**](https://github.com/dau-dev/dau-sim) (public) - simulation infrastructure for digital hardware designs, including cocotb and Verilator integration.
-- [**artlink**](https://github.com/dau-dev/artlink) (public) - domain-neutral artifact manifests, validation templates, and registry/discovery helpers.
-- **dau** (private) - thin end-user Python API over stable `dau` primitives.
-- **dau-polars** (private) - Polars frontend for selective FPGA pushdown with CPU fallback.
-- **dau-core** (private) - hardware-facing contracts, golden semantics, stream protocols, and reusable HDL.
-- **dau-driver** (private) - `dau`-compatible device discovery, registers, DMA, codecs, and execution helpers.
-- **dau-utils** (private) - shared host utilities used by the stack.
+### Design principles
 
-Some `dau` development is proprietary or hardware-lab specific, including portions of the accelerator
-implementation, bring-up evidence, datasets, and internal integration notes. Open-source `dau` code is
-released under the Apache 2.0 License unless a repository states otherwise.
+- **Selective offload:** accelerate operations that benefit from streaming hardware; preserve
+  explicit CPU fallback for everything else.
+- **Tile-aware compilation:** compile dataframe and domain expressions onto reusable operator,
+  storage, and routing tiles.
+- **Workload-shaped configurations:** use observed plans and measurements to right-size future
+  device configurations instead of treating one bitstream as universal.
+- **Artifact-first workflows:** package generated HDL, constraints, bitstreams, reports, and
+  capability metadata as typed, traceable artifacts.
+- **In-silica validation:** test golden semantics and composed workflows in simulation before
+  measuring the same contracts on physical FPGA hardware.
+
+### Public developer projects
+
+- [**dau-build**](https://github.com/dau-dev/dau-build) — declarative FPGA build specs, generated
+  SystemVerilog, artifact bundles, Vivado/yosys handoff, and task orchestration.
+- [**dau-sim**](https://github.com/dau-dev/dau-sim) — cycle-accurate simulation for Amaranth,
+  SystemVerilog, and hand-constructed hardware IR.
+- [**artlink**](https://github.com/dau-dev/artlink) — domain-neutral artifact manifests, validation
+  templates, composition, and registry discovery.
+
+### Private platform components
+
+- **dau** — end-user Python API.
+- **dau-polars** — Polars plan capture, tile compilation, selective execution, and CPU fallback.
+- **dau-core** — capability contracts, golden semantics, stream protocols, and reusable HDL tiles.
+- **dau-driver** — device discovery, register access, DMA, codecs, and execution helpers.
+- **dau-utils** — shared host utilities.
+
+The accelerator implementation, hardware-lab integration, datasets, and some validation evidence
+remain private while the platform develops. Public `dau` projects are released under the Apache 2.0
+License unless a repository states otherwise.
+
+**Current status:** end-to-end market-data aggregation workflows have run on FPGA and matched CPU
+goldens. Current work expands operator coverage, runtime scheduling, result streaming, and throughput.
