@@ -55,9 +55,9 @@ simulation, synthesis, packaging, flashing, and smoke testing.
   SystemVerilog, artifact bundles, Vivado/yosys handoff, and task orchestration.
 - [**dau-sim**](https://github.com/dau-dev/dau-sim) — cycle-accurate simulation for Amaranth,
   SystemVerilog, and hand-constructed hardware IR.
+- [**dau-utils**](https://github.com/dau-dev/dau-utils) — shared host utilities.
 - [**artlink**](https://github.com/dau-dev/artlink) — domain-neutral artifact manifests, validation
   templates, composition, and registry discovery.
-- [**dau-utils**](https://github.com/dau-dev/dau-utils) — shared host utilities.
 
 ### Private platform components
 
