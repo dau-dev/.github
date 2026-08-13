@@ -57,6 +57,7 @@ simulation, synthesis, packaging, flashing, and smoke testing.
   SystemVerilog, and hand-constructed hardware IR.
 - [**artlink**](https://github.com/dau-dev/artlink) — domain-neutral artifact manifests, validation
   templates, composition, and registry discovery.
+- [**dau-utils**](https://github.com/dau-dev/dau-utils) — shared host utilities.
 
 ### Private platform components
 
@@ -64,7 +65,6 @@ simulation, synthesis, packaging, flashing, and smoke testing.
 - **dau-polars** — Polars plan capture, tile compilation, selective execution, and CPU fallback.
 - **dau-core** — capability contracts, golden semantics, stream protocols, and reusable HDL tiles.
 - **dau-driver** — device discovery, register access, DMA, codecs, and execution helpers.
-- **dau-utils** — shared host utilities.
 
 The accelerator implementation, hardware-lab integration, datasets, and some validation evidence
 remain private while the platform develops. Public `dau` projects are released under the Apache 2.0
