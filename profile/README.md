@@ -18,57 +18,62 @@
 
 ---
 
-[**dau**](https://dau.dev) is a modular hardware/software platform for accelerating analytical
-workflows. It captures dataframe plans, maps supported work onto composable FPGA operator tiles, and
-keeps unsupported work in familiar host software.
+[**dau**](https://dau.dev) is a hardware and software platform for speeding up analytical work. It
+captures dataframe plans, runs the parts an FPGA can take on composable operator tiles, and leaves
+the rest in ordinary host software.
 
-The execution model is selective and explicit:
+The device never runs everything, and you always see what it runs:
 
 ```text
 Polars lazy plan
     → capture and type the operation graph
-    → compile supported fragments against the tile palette
-    → compare the required design with the resident device
-    → run now | build a right-sized configuration | return typed CPU residue
+    → compile the supported fragments against the tile palette
+    → compare the required design with what the device holds
+    → run now | build a right-sized configuration | hand back typed CPU residue
 ```
 
-Fixed-width Arrow-derived streams carry data across PCIe. Capability contracts describe what a
-resident configuration can execute. Declarative build specs connect the same design description to
-simulation, synthesis, packaging, flashing, and smoke testing.
+Data crosses PCIe as fixed-width streams derived from Arrow. A capability contract describes what
+the configuration on the device can run. One declarative build spec drives simulation, synthesis,
+packaging, flashing and smoke testing for a design.
 
 ### Design principles
 
-- **Selective offload:** accelerate operations that benefit from streaming hardware; preserve
+- **Selective offload.** Accelerate the operations that gain from streaming hardware, and keep an
   explicit CPU fallback for everything else.
-- **Tile-aware compilation:** compile dataframe and domain expressions onto reusable operator,
-  storage, and routing tiles.
-- **Workload-shaped configurations:** use observed plans and measurements to right-size future
-  device configurations instead of treating one bitstream as universal.
-- **Artifact-first workflows:** package generated HDL, constraints, bitstreams, reports, and
-  capability metadata as typed, traceable artifacts.
-- **In-silica validation:** test golden semantics and composed workflows in simulation before
-  measuring the same contracts on physical FPGA hardware.
+- **Tile-aware compilation.** Compile dataframe and domain expressions onto reusable operator,
+  storage and routing tiles.
+- **Workload-shaped configurations.** Use observed plans and measurements to size the next device
+  configuration, rather than treating one bitstream as universal.
+- **Artifacts first.** Package generated HDL, constraints, bitstreams, reports and capability
+  metadata as typed, traceable artifacts.
+- **Validate in simulation, then on silicon.** Test golden semantics and composed workflows in
+  simulation before measuring the same contracts on an FPGA.
 
-### Public developer projects
+### Developer projects
 
-- [**dau-build**](https://github.com/dau-dev/dau-build) — declarative FPGA build specs, generated
-  SystemVerilog, artifact bundles, Vivado/yosys handoff, and task orchestration.
-- [**dau-sim**](https://github.com/dau-dev/dau-sim) — cycle-accurate simulation for Amaranth,
-  SystemVerilog, and hand-constructed hardware IR.
-- [**dau-utils**](https://github.com/dau-dev/dau-utils) — shared host utilities.
-- [**artlink**](https://github.com/dau-dev/artlink) — domain-neutral artifact manifests, validation
-  templates, composition, and registry discovery.
+- [**dau-build**](https://github.com/dau-dev/dau-build): declarative FPGA build specs, generated
+  SystemVerilog, artifact bundles, Vivado and yosys handoff, and task orchestration.
+- [**dau-sim**](https://github.com/dau-dev/dau-sim): cycle-accurate simulation for Amaranth,
+  SystemVerilog and hand-constructed hardware IR.
+- [**dau-utils**](https://github.com/dau-dev/dau-utils): host utilities for FPGA bench machines.
+- [**artlink**](https://github.com/dau-dev/artlink): domain-neutral artifact manifests, validation
+  templates, composition and registry discovery.
 
-### Private platform components
+### Platform components
 
-- **dau** — end-user Python API.
-- **dau-polars** — Polars plan capture, tile compilation, selective execution, and CPU fallback.
-- **dau-core** — capability contracts, golden semantics, stream protocols, and reusable HDL tiles.
-- **dau-driver** — device discovery, register access, DMA, codecs, and execution helpers.
+These make up the accelerator itself. They are private today and are being prepared for public
+release; the plan is for all of the code to be open, with the boards as the product.
 
-The accelerator implementation, hardware-lab integration, datasets, and some validation evidence
-remain private while the platform develops. Public `dau` projects are released under the Apache 2.0
-License unless a repository states otherwise.
+- **dau**: end-user Python API and the integration home for designs and platforms.
+- **dau-polars**: Polars plan capture, tile compilation, selective execution and CPU fallback.
+- **dau-core**: capability contracts, golden semantics, stream protocols and reusable HDL tiles.
+- **dau-driver**: device discovery, register access, DMA, codecs and execution helpers.
+- **dau-scheduler**: work splitting between host and device, and the measured profiles it uses.
 
-**Current status:** end-to-end market-data aggregation workflows have run on FPGA and matched CPU
-goldens. Current work expands operator coverage, runtime scheduling, result streaming, and throughput.
+Public `dau` projects are released under the Apache 2.0 License unless a repository states
+otherwise.
+
+**Current status:** TPC-H and market-data aggregation workloads have run end to end on FPGA and
+matched their CPU results bit for bit. A query can run on the device, on the CPU, or split between
+the two, and the split is chosen from measured costs. Current work is on operator coverage, the cost
+model, and the next board.
