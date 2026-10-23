@@ -62,17 +62,18 @@ packaging, flashing and smoke testing for a design.
 
 ### Platform components
 
-These make up the accelerator itself. dau-core and dau-scheduler are public; the others are
-being prepared for public release. The plan is for all of the code to be open, with the boards as
-the product.
+These make up the accelerator itself. dau-core, dau-scheduler and dau-driver are public; the
+others are being prepared for public release. The plan is for all of the code to be open, with
+the boards as the product.
 
 - [**dau-core**](https://github.com/dau-dev/dau-core): capability contracts, golden semantics,
   stream protocols and reusable HDL tiles.
 - [**dau-scheduler**](https://github.com/dau-dev/dau-scheduler): work splitting between host and
   device, and the measured profiles it uses.
+- [**dau-driver**](https://github.com/dau-dev/dau-driver): device discovery, register access, DMA,
+  codecs and execution helpers.
 - **dau**: end-user Python API and the integration home for designs and platforms.
 - **dau-polars**: Polars plan capture, tile compilation, selective execution and CPU fallback.
-- **dau-driver**: device discovery, register access, DMA, codecs and execution helpers.
 
 Public `dau` projects are released under the Apache 2.0 License unless a repository states
 otherwise.
