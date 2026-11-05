@@ -1,6 +1,10 @@
 <p align="center">
   <a href="https://dau.dev">
-    <img width="160" src="https://github.com/dau-dev.png?size=320" alt="dau logo" />
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://github.com/dau-dev/.github/raw/main/profile/lockup-on-shadow.svg" />
+      <source media="(prefers-color-scheme: light)" srcset="https://github.com/dau-dev/.github/raw/main/profile/lockup-on-lit.svg" />
+      <img width="280" src="https://github.com/dau-dev/.github/raw/main/profile/lockup-on-lit.svg" alt="dau" />
+    </picture>
   </a>
 </p>
 <p align="center">
