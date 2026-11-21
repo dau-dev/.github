@@ -24,10 +24,7 @@
 ---
 
 [**dau**](https://dau.dev) is a hardware and software platform for speeding up analytical work. It
-captures dataframe plans, runs the parts an FPGA can take on composable operator tiles, and leaves
-the rest in ordinary host software.
-
-The device never runs everything, and you always see what it runs:
+takes lazy Polars dataframes, selectively schedules work on an FPGA composed of configurable tiles of functionality, and leaves any remaining work for the CPU.
 
 ```text
 Polars lazy plan
