@@ -44,7 +44,7 @@ packaging, flashing and smoke testing for a design.
 
 - **Selective offload.** Accelerate the operations that gain from streaming hardware, and keep an
   explicit CPU fallback for everything else.
-- **Tiles and cores.** A tile is an operation that a Polars expression maps to. Each tile is built
+- **Tiles and cores.** A tile is an operation to which a Polars expression maps. Each tile is built
   from cores, the reusable hardware blocks for operators, storage and routing.
 - **A configuration per workload.** Observed plans and measurements choose what goes into the next
   device configuration. No single bitstream is expected to cover every workload.
