@@ -80,8 +80,3 @@ and dau-polars will be public soon.
 
 Public `dau` projects are released under the Apache 2.0 License unless a repository states
 otherwise.
-
-**Current status:** TPC-H and market-data aggregation workloads have run end to end on FPGA and
-matched their CPU results bit for bit. A query can run on the device, on the CPU, or split between
-the two, and the split is chosen from measured costs. Current work is on operator coverage, the cost
-model, and the next board.
