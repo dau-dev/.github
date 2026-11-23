@@ -24,8 +24,9 @@
 
 ---
 
-[**dau**](https://dau.dev) is an FPGA accelerator card and the open-source software that runs
-analytical queries on it. It takes a lazy Polars query, runs the parts the card supports on the
+[**dau**](https://dau.dev) is a framework for building and running calculations
+on an FPGA accelerator composed of expression-backed hardware tiles.
+It takes a lazy Polars query, runs the parts the card supports on the
 FPGA, and runs the rest on the CPU.
 
 ```text
