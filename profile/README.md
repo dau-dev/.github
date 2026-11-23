@@ -26,8 +26,10 @@
 
 [**dau**](https://dau.dev) is a framework for building and running calculations
 on an FPGA accelerator composed of expression-backed hardware tiles.
-It takes a lazy Polars query, runs the parts the card supports on the
-FPGA, and runs the rest on the CPU.
+It takes a lazy Polars query, offloads whatever it can to the FPGA,
+and runs the rest on the CPU.
+It can also design a slate of hardware tiles based on the query itself, so you
+can build custom hardware specific to your operation.
 
 ```text
 Polars lazy plan
