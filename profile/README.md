@@ -66,8 +66,7 @@ packaging, flashing and smoke testing for a design.
 ### Platform components
 
 These make up the accelerator itself. dau-core, dau-scheduler and dau-driver are public, and dau
-and dau-polars are being published next. All of the code is meant to be open, with the boards as
-the product.
+and dau-polars will be public soon.
 
 - [**dau-core**](https://github.com/dau-dev/dau-core): the HDL cores and their golden models, the
   tile catalog, capability contracts and stream protocols.
