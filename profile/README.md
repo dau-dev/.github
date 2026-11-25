@@ -74,7 +74,7 @@ and dau-polars will be public soon.
 - [**dau-core**](https://github.com/dau-dev/dau-core): the HDL cores and their golden models, the
   tile catalog, capability contracts and stream protocols.
 - [**dau-scheduler**](https://github.com/dau-dev/dau-scheduler): work splitting between host and
-  device, and the measured profiles it uses.
+  device, and measured profiles for deciding.
 - [**dau-driver**](https://github.com/dau-dev/dau-driver): device discovery, register access, DMA,
   codecs and execution helpers.
 - **dau**: end-user Python API, and the designs and board definitions the other packages build.
